@@ -1,7 +1,10 @@
 import { FullBlogArticle } from "@/app/lib/interface";
 import { client, urlFor } from "@/app/lib/sanity";
 import { PortableText } from "@portabletext/react";
+import { revalidateTag } from "next/cache";
 import Image from "next/image";
+
+export const revalidate = 30;
 
 async function getData(slug: string) {
   const query = `* [_type =="blog" && slug.current == '${slug}']
@@ -42,7 +45,7 @@ export default async function BlogArticle({
         className="mt-8 rounded-lg border"
       />
 
-      <div className="mt-20 prose prose-blue prose-md dark:prose-invert">
+      <div className="mt-16 prose prose-blue prose-lg dark:prose-invert">
         <PortableText value={data.content} />
 
       </div>
